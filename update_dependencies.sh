@@ -25,11 +25,7 @@ BLACKLIST_PACKAGES=''
 ###################################
 # Decide whether to include fssim #
 ###################################
-case $1 in
-    -f|--fssim)
-    FSSIM="TRUE"
-    ;;
-esac
+FSSIM="TRUE"
 
 printf "FSSIM is..."
 if [ -z $FSSIM ]; then
@@ -120,9 +116,8 @@ printf "ALL CHECKS PASSED [${green}YES${end}]\n"
 
 ############################################
 # Update the git repositories using wstool #
-############################################
-read -p "Do you want to get/update the repositories (Y/n)? " -n 1 -r
-echo
+############################################"
+REPLY=y
 if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ]; then
 
     if [ -e "${ABSOLUTE_PATH}/.rosinstall" ]; then
@@ -154,8 +149,6 @@ fi
 ###################################################
 # 	 Update the binary dependencies using rosdep  #	
 ###################################################
-read -p "Do you want to install/update the projects dependencies (Y/n)? " -n 1 -r
-echo
 if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ]; then
 
     # Place our FSD dependencies in the rosdep sources folder
@@ -173,7 +166,6 @@ if [[ $REPLY =~ ^[Yy]$ ]] || [ -z $REPLY ]; then
 
     # Install the dependencies
     rosdep install --from-paths "${ABSOLUTE_PATH}/" -r -i -y || { printf "[${red}ROSDEP FAILED${end}]\n" ;}
-    
 fi
 
 #################################################
